@@ -1,7 +1,6 @@
 package com.mina.doctors_fadfadly;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +12,10 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.mina.doctors_fadfadly.Base.BaseActivity;
+import com.mina.doctors_fadfadly.Model.DataUtil;
 import com.mina.doctors_fadfadly.Model.User;
 
 public class LoginActivity extends BaseActivity  implements

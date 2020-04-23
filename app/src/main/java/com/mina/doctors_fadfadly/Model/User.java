@@ -3,9 +3,13 @@ package com.mina.doctors_fadfadly.Model;
 public class User {
     String name;
     String id;
-    String phone;
     String password;
     String email;
+    String age;
+    String gender;
+    String nationalId;
+    String address;
+    String bachelor;
 
     public String getEmail() {
         return email;
@@ -21,9 +25,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public User() {
     }
 
     public String getName() {
@@ -42,11 +43,26 @@ public class User {
         this.id = id;
     }
 
-    public String getPhone() {
-        return phone;
-    }
+    public String getAge() { return age; }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setAge(String age) { this.age = age; }
+
+    public String getGender() { return gender; }
+
+    public void setGender(String gender) { this.gender = gender; }
+
+    public String getNationalId() { return nationalId; }
+
+    public void setNationalId(String nationalId) { this.nationalId = nationalId; }
+
+    public String getAddress() { return address; }
+
+    public void setAddress(String address) { this.address = address; }
+
+    public String getBachelor() { return bachelor; }
+
+    public void setBachelor(String bachelor) { this.bachelor = bachelor; }
+
+    public User() {
     }
 }

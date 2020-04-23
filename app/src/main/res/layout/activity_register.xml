@@ -177,8 +177,8 @@
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/colorPrimaryDark"
                     android:text="Male"
-                    android:onClick="onRadioButtonClicked"
-                    tools:ignore="OnClick" />
+
+                    />
 
                 <RadioButton android:id="@+id/female"
                     android:layout_width="wrap_content"
@@ -186,6 +186,7 @@
                     android:buttonTint="@color/colorPrimaryDark"
                     android:text="Female" />
             </RadioGroup>
+
 
             <EditText
                 android:layout_width="0dp"
@@ -199,7 +200,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="1234556"
 
-               />
+                />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
