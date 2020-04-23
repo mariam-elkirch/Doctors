@@ -85,7 +85,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         public void onComplete(@NonNull Task task) {
                             DataUtil.dbUser=user;
                             hideProgressDialog();
-                            startActivity(new Intent(RegisterActivity.this,MainActivity.class));
+                            startActivity(new Intent(RegisterActivity.this,Register2.class));
                             finish();
 
                         }
