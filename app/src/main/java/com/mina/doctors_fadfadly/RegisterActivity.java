@@ -24,6 +24,7 @@ import com.mina.doctors_fadfadly.Database.daos.UsersDao;
 import com.mina.doctors_fadfadly.Model.DataUtil;
 import com.mina.doctors_fadfadly.Model.User;
 
+
 public class RegisterActivity extends BaseActivity implements View.OnClickListener,
         OnFailureListener, OnCompleteListener<AuthResult> {
 
@@ -85,7 +86,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         public void onComplete(@NonNull Task task) {
                             DataUtil.dbUser=user;
                             hideProgressDialog();
-                            startActivity(new Intent(RegisterActivity.this,Register2.class));
+                            startActivity(new Intent(RegisterActivity.this,MainActivity.class));
                             finish();
 
                         }
@@ -100,9 +101,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     });
         }
     }
-
-
-
 
 
     @Override

@@ -10,10 +10,7 @@ public class User {
     String nationalId;
     String address;
     String bachelor;
-    String ImgName;
-    String mImgURl;
-    public User(String ImgName,String mImgURl) {
-    }
+
     public String getEmail() {
         return email;
     }
