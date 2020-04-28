@@ -1,9 +1,11 @@
 package com.mina.doctors_fadfadly;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,14 +14,19 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.mina.doctors_fadfadly.Base.BaseActivity;
+import com.mina.doctors_fadfadly.Database.daos.UsersDao;
 import com.mina.doctors_fadfadly.Model.DataUtil;
 import com.mina.doctors_fadfadly.Model.User;
 
 public class LoginActivity extends BaseActivity  implements
-         View.OnClickListener,OnCompleteListener<AuthResult>,OnFailureListener {
+        View.OnClickListener,OnCompleteListener<AuthResult>,OnFailureListener {
 
     protected EditText email;
     protected EditText password;
@@ -35,9 +42,38 @@ public class LoginActivity extends BaseActivity  implements
         if(auth.getCurrentUser()!=null){
             DataUtil.user =
                     FirebaseAuth.getInstance().getCurrentUser();
-            startActivity(new Intent(LoginActivity.this,MainActivity.class));
-            finish();
+            showProgressDialog(R.string.loading);
+            getUserFromDatabase();
+            //startActivity(new Intent(LoginActivity.this,MainActivity.class));
+            //finish();
         }
+    }
+
+    private void getUserFromDatabase(){
+        UsersDao.getUser(DataUtil.user.getUid(), new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                hideProgressDialog();
+
+                if (task.isSuccessful()){
+                    for (QueryDocumentSnapshot userDocument : task.getResult()){
+                        if (userDocument!=null){
+                            User currentUser = userDocument.toObject(User.class);
+                            DataUtil.dbUser=currentUser;
+                            startActivity(new Intent(LoginActivity.this , MainActivity.class));
+                            finish();
+                        }
+                        break;
+                    }
+                }
+            }
+        }, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                hideProgressDialog();
+                showMessage(e.getLocalizedMessage(),"ok");
+            }
+        });
     }
 
     @Override
@@ -46,26 +82,20 @@ public class LoginActivity extends BaseActivity  implements
             String EmailText=email.getText().toString();
             String passwordText=password.getText().toString();
             if(EmailText.trim().isEmpty()){
-                email.setError("requried");
+                email.setError("required");
                 return;
             }
             if(passwordText.trim().isEmpty()){
-                password.setError("requried");
+                password.setError("required");
                 return;
             }
             //authontification
-            User user=new User();
-            user.setName(EmailText);
-            user.setPassword(passwordText);
-            FirebaseAuth auth=FirebaseAuth.getInstance();
 
+            FirebaseAuth auth=FirebaseAuth.getInstance();
+            showProgressDialog(R.string.loading);
             auth.signInWithEmailAndPassword(EmailText,passwordText)
                     .addOnCompleteListener(this)
                     .addOnFailureListener(this);
-
-
-
-
 
 
         }
@@ -80,8 +110,9 @@ public class LoginActivity extends BaseActivity  implements
         if(task.isSuccessful()){
             DataUtil.user =
                     FirebaseAuth.getInstance().getCurrentUser();
-            startActivity(new Intent(LoginActivity.this,MainActivity.class));
-            finish();
+            //startActivity(new Intent(LoginActivity.this,MainActivity.class));
+            //finish();
+            getUserFromDatabase();
         }
     }
 
